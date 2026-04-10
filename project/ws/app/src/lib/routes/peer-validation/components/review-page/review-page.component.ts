@@ -180,8 +180,8 @@ export class ReviewPageComponent implements OnInit {
   }
 
   // Preview document in VideoPreviewDialogComponent
-  previewDocument(url: string) {
-    const name = this.getAttachmentName(url)
+  previewDocument(url: string, name?: string) {
+    const resolvedName = name || this.getAttachmentName(url)
     const type = this.isPdf(url) ? 'application/pdf' : this.isVideo(url) ? 'video/mp4' : ''
     if (!type) {
       window.open(url, '_blank')
@@ -191,7 +191,7 @@ export class ReviewPageComponent implements OnInit {
       width: '800px',
       maxWidth: '90vw',
       height: this.isPdf(url) ? '90vh' : 'auto',
-      data: { url, name, type },
+      data: { url, name: resolvedName, type },
     })
   }
 

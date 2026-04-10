@@ -18,6 +18,12 @@ export namespace NSPeerValidation {
     value: number | string | string[] // Array for multi-select
   }
 
+  // Attachment (name + url pair submitted with survey)
+  export interface IAttachment {
+    name: string
+    url: string
+  }
+
   // Uploaded Document
   export interface IUploadedDocument {
     id: string
@@ -57,7 +63,7 @@ export namespace NSPeerValidation {
     createdAt: string
     thumbnail: string
     peerIds: string[]
-    attachments: string[]
+    attachments: IAttachment[]
     responses: ISubmitResponse[]
     submissionMeta: {
       submittedFrom: string
@@ -146,7 +152,7 @@ export namespace NSPeerValidation {
     contextOrgId: string
     status: string
     responses: ISubmissionResponse[]
-    attachments: string[]
+    attachments: IAttachment[]
   }
 
   // Review Submission — matches POST /apis/proxies/v8/forms/peersurvey/submit

@@ -155,7 +155,7 @@ export class SurveyDialogComponent implements OnInit, OnDestroy {
 
     const peerIds: string[] = this.selectedPeers.peers.map((p: any) => p.id || p.userId || p)
 
-    const attachments: string[] = this.uploadedDocuments.map(d => d.url)
+    const attachments = this.uploadedDocuments.map(d => ({ name: d.name, url: d.url }))
 
     const responses: NSPeerValidation.ISubmitResponse[] = this.surveyQuestions.map((q, index) => {
       const rawValue = this.responses.at(index).value

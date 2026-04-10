@@ -69,18 +69,20 @@
 
     <!-- File Attachments -->
     <div class="attachments" *ngIf="requestData?.attachments?.length">
-      <div class="attachment-item" *ngFor="let url of requestData.attachments"
-        [ngClass]="{'video': isVideo(url), 'doc': isPdf(url), 'img': isImage(url)}">
+      <div class="attachment-item" *ngFor="let attachment of requestData.attachments"
+        [ngClass]="{'video': isVideo(attachment.url), 'doc': isPdf(attachment.url), 'img': isImage(attachment.url)}">
         <div class="attachment-icon">
-          <mat-icon *ngIf="isVideo(url)" class="icon-video">play_circle_filled</mat-icon>
-          <img *ngIf="isPdf(url)" src="assets/icons/PDF_alternate.svg" class="icon-file" width="24" height="24"
-            alt="File Icon">
-          <mat-icon *ngIf="isImage(url)" class="icon-image">image</mat-icon>
-          <mat-icon *ngIf="!isVideo(url) && !isPdf(url) && !isImage(url)">attach_file</mat-icon>
+          <mat-icon *ngIf="isVideo(attachment.url)" class="icon-video">play_circle_filled</mat-icon>
+          <img *ngIf="isPdf(attachment.url)" src="assets/icons/PDF_alternate.svg" class="icon-file" width="24"
+            height="24" alt="File Icon">
+          <mat-icon *ngIf="isImage(attachment.url)" class="icon-image">image</mat-icon>
+          <mat-icon
+            *ngIf="!isVideo(attachment.url) && !isPdf(attachment.url) && !isImage(attachment.url)">attach_file</mat-icon>
         </div>
         <div class="attachment-info">
-          <span class="filename clickable" (click)="previewDocument(url)" [title]="getAttachmentName(url)">
-            {{ getAttachmentName(url) }}
+          <span class="filename clickable" (click)="previewDocument(attachment.url, attachment.name)"
+            [title]="attachment.name">
+            {{ attachment.name }}
           </span>
         </div>
       </div>
