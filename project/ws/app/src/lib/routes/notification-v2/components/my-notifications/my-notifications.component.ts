@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
 import { ConfigurationsService, EventService, MultilingualTranslationsService } from '@sunbird-cb/utils-v2'
 import { NotificationsService } from '../../../../../../../../../src/app/services/notifications.service'
@@ -6,9 +6,11 @@ import { environment } from 'src/environments/environment'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { MatDialog as MatDialogNew } from '@angular/material/dialog'
+import { Subscription } from 'rxjs'
 import { ConfirmDialogComponent } from '@sunbird-cb/collection/src/lib/_common/confirm-dialog/confirm-dialog.component'
 import { SurveyPopupComponent } from '../../../peer-validation/components/survey-popup/survey-popup.component'
 import { VerificationRequestDialogComponent } from '../../../peer-validation/components/verification-request-dialog/verification-request-dialog.component'
+import { NSPeerValidation } from '../../../peer-validation/models/peer-validation.model'
 import { LibNotificationsService } from '@sunbird-cb/notification'
 import { ActivatedRoute } from '@angular/router'
 @Component({
@@ -16,10 +18,12 @@ import { ActivatedRoute } from '@angular/router'
   templateUrl: './my-notifications.component.html',
   styleUrls: ['./my-notifications.component.scss']
 })
-export class MyNotificationsComponent {
+export class MyNotificationsComponent implements OnDestroy {
   selectedLanguage = 'en'
   roles: string[] = []
   fragment: string = ''
+  private surveyPopupSub?: Subscription
+  private verificationPopupSub?: Subscription
   constructor(private translate: TranslateService,
     private langtranslations: MultilingualTranslationsService,
     private notificationsService: NotificationsService,
@@ -59,6 +63,11 @@ export class MyNotificationsComponent {
         this.fragment = fragment
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.surveyPopupSub?.unsubscribe()
+    this.verificationPopupSub?.unsubscribe()
   }
 
 
@@ -124,9 +133,11 @@ export class MyNotificationsComponent {
         thumbnail: notifData.thumbnail || '',
       },
     })
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'ignored') {
+    this.surveyPopupSub = dialogRef.afterClosed().subscribe((result: NSPeerValidation.EDialogResult) => {
+      if (result === NSPeerValidation.EDialogResult.IGNORED) {
         notification.status = 'IGNORED'
+      } else if (result === NSPeerValidation.EDialogResult.SUBMITTED) {
+        notification.status = 'SUBMITTED'
       }
     })
   }
@@ -167,8 +178,8 @@ export class MyNotificationsComponent {
         thumbnail: notifData.thumbnail || '',
       },
     })
-    verificationDialogRef.afterClosed().subscribe(result => {
-      if (result === 'ignored') {
+    this.verificationPopupSub = verificationDialogRef.afterClosed().subscribe((result: NSPeerValidation.EDialogResult) => {
+      if (result === NSPeerValidation.EDialogResult.IGNORED) {
         notification.status = 'IGNORED'
       }
     })

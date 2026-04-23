@@ -165,4 +165,9 @@ export namespace NSPeerValidation {
     PENDING = 'PENDING',
     COMPLETED = 'COMPLETED',
   }
+
+  export enum EDialogResult {
+    SUBMITTED = 'submitted',
+    IGNORED = 'ignored',
+  }
 }
