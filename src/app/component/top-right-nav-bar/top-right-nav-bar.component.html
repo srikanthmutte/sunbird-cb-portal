@@ -32,7 +32,7 @@
             <li *ngIf="item.type === 'langSelect' && rnc.section === 'language' && rnc.active && isMultiLangEnabled && domainConfSvc.isConfigEnabled('components.header', 'language')"
                 class="langdiv">
                 <img src="/assets/icons/top-nav/translate_icon.svg" alt="" [matMenuTriggerFor]="language"
-                    alt="Language image" class="mob-lang-img mx-2" />
+                    alt="Language image" class="mob-lang-img mx-2 icon-image" />
                 <mat-menu #language="matMenu" xPosition="before">
                     <ng-container *ngFor="let lang of multiLang">
                         <button mat-menu-item class="px-3" (click)="selectLanguage(lang.key)" *ngIf="lang.active">

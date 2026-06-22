@@ -2323,7 +2323,7 @@ ngx-guided-tour {
     line-height: 36px;
     font-family: Montserrat;
     letter-spacing: normal;
-    margin: 0 0 16px !important;
+    margin: 16px 0 16px !important;
   }
 
   .text-base {
@@ -2345,4 +2345,10 @@ ngx-guided-tour {
   .card-wide-v2 .mat-text-box {
     padding: 12px 12px 11px !important;
   }
+}
+
+.pagination-size-select {
+  width: 100%;
+
+
 }

@@ -9,13 +9,13 @@
     <!-- Top badge -->
     <div class="support-section__badge" *ngIf="isSectionEnabled('supportSectionLoggedIn')">
       <span class="material-icons support-section__badge-icon">{{ supportSectionConfig.badgeIcon}}</span>
-      {{ supportSectionConfig.badgeText || 'Need Help?' }}
+      {{ supportSectionConfig?.badgeText }}
     </div>
 
     <!-- Headline -->
     <h2 class="support-section__heading" *ngIf="isSectionEnabled('supportSectionLoggedIn')">
-      {{ supportSectionConfig.heading }}
-      <span class="support-section__heading--accent">{{ supportSectionConfig.headingAccent }}</span>
+      {{ supportSectionConfig?.heading }}
+      <span class="support-section__heading--accent">{{ supportSectionConfig?.headingAccent }}</span>
     </h2>
 
     <!-- ══════════════════════════════════════
@@ -23,7 +23,7 @@
                             ══════════════════════════════════════ -->
     <!-- STATE PANEL -->
     <ng-container *ngIf="isSectionEnabled('stateSupportCenter')">
-      <p class="support-section__sub">{{ supportSectionConfig.subText }}</p>
+      <p class="support-section__sub">{{ supportSectionConfig?.subText }}</p>
 
       <div class="state-panel">
 
@@ -33,16 +33,16 @@
               <span class="material-icons">map</span>
             </div>
             <div>
-              <div class="state-panel__title">{{ supportSectionConfig.statePanelTitle }}</div>
+              <div class="state-panel__title">{{ supportSectionConfig?.statePanelTitle }}</div>
               <div class="state-panel__sub">
-                {{ supportSectionConfig.statePanelSub }}
+                {{ supportSectionConfig?.statePanelSub }}
               </div>
             </div>
           </div>
           <div class="state-panel__search-wrap">
             <span class="material-icons state-panel__search-icon">search</span>
             <input type="text" class="state-panel__search"
-              [placeholder]="supportSectionConfig.searchPlaceholder || 'Search state or UT…'"
+              [placeholder]="supportSectionConfig?.searchPlaceholder || 'Search state or UT…'"
               (input)="filterStateGrid($event.target.value)" />
           </div>
         </div>
@@ -97,24 +97,24 @@
     </ng-container>
 
     <div class="support-step-hint"
-      *ngIf="isSectionEnabled('stateSupportCenter') && isSectionEnabled('nationalHelpDesk')">
+      *ngIf="isSectionEnabled('stateSupportCenter') && isSectionEnabled('nationalHelpDeskLoggedIn')">
       <span class="material-icons" style="font-size:16px;color:#9ca3af">or</span>
       <span style="color:#6b7280;font-size:.88rem">or Reach out to <strong style="color:#0d1b6e">National Help
           Desk</strong></span>
     </div>
 
     <!-- Call Card -->
-    <div class="call-card mt-5" *ngIf="isSectionEnabled('nationalHelpDesk')">
+    <div class="call-card mt-5" *ngIf="isSectionEnabled('nationalHelpDeskLoggedIn')">
       <div class="call-card__left">
         <div class="call-card__phone-icon-wrap">
           <span class="material-icons call-card__phone-icon">phone_in_talk</span>
         </div>
         <div class="call-card__info">
-          <h3 class="call-card__title">{{ supportSectionConfig.nationalHelpDeskTitle || 'National Help Desk' }}</h3>
+          <h3 class="call-card__title">{{ supportSectionConfig?.nationalHelpDeskTitle }}</h3>
           <p class="call-card__desc">
-            {{ supportSectionConfig.nationalHelpDeskDesc || 'Connect with our experts for quick, real-time support.' }}
+            {{ supportSectionConfig?.nationalHelpDeskDesc }}
           </p>
-          <p class="call-card__hours">
+          <p class="call-card__hours" *ngIf="supportHours">
             <span class="material-icons call-card__clock">schedule</span>
             {{ supportHours }}
           </p>

@@ -237,3 +237,9 @@
     }
 
 }
+
+::ng-deep .sort-options {
+    .mat-mdc-text-field-wrapper {
+        width: 200px;
+    }
+}

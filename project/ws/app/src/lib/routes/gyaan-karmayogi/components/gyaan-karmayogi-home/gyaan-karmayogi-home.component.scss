@@ -392,3 +392,7 @@
         background: #fff !important;
     }
 }
+
+::ng-deep .filter-select-dropdown {
+    margin-top: 5px;
+}

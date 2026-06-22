@@ -77,7 +77,8 @@
                         <div class="flex flex-col">
                             <label for="">{{'gyaanKarmayogi.sector'| translate}}</label>
                             <mat-form-field appearance="outline" class="filter-select">
-                                <mat-select name="sectors" placeholder="{{'gyaanKarmayogi.sectors' | translate}}"
+                                <mat-select name="sectors" class="filter-select-dropdown"
+                                    placeholder="{{'gyaanKarmayogi.sectors' | translate}}"
                                     (selectionChange)="sectorChange($event)" formControlName="sectors">
                                     <ng-container *ngFor="let sector of sectorsList">
                                         <mat-option [value]="sector">{{sector?.name | titlecase}}</mat-option>
@@ -88,7 +89,8 @@
                         <div class="flex flex-col">
                             <label for="">{{'gyaanKarmayogi.subSector'| translate}}</label>
                             <mat-form-field appearance="outline" class="filter-select">
-                                <mat-select name="subSectors" placeholder="{{'gyaanKarmayogi.subSectors' | translate}}"
+                                <mat-select name="subSectors" class="filter-select-dropdown"
+                                    placeholder="{{'gyaanKarmayogi.subSectors' | translate}}"
                                     (selectionChange)="subSectorChange($event)" formControlName="subSectors">
                                     <ng-container *ngFor="let subData of subSector">
                                         <mat-option [value]="subData?.name">{{subData?.name | titlecase}}</mat-option>
@@ -99,16 +101,17 @@
                         <div class="flex flex-col">
                             <label for="">{{'gyaanKarmayogi.category'| translate}}</label>
                             <mat-form-field appearance="outline" class="filter-select">
-                                <mat-select name="category" placeholder="Categories" formControlName="category">
+                                <mat-select name="category" class="filter-select-dropdown" placeholder="Categories"
+                                    formControlName="category">
                                     <ng-container *ngFor="let cat of categories">
                                         <mat-option [value]="cat?.name">{{cat?.name | titlecase}}</mat-option>
                                     </ng-container>
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <button class="apply-btn mt-4 md:mt-0" type="submit">{{'gyaanKarmayogi.applyNow'|
+                        <button class="apply-btn mt-4 md:mt-2" type="submit">{{'gyaanKarmayogi.applyNow'|
                             translate}}</button>
-                        <button class="filters-btn mt-4 md:mt-0" (click)="viewAllSector()">
+                        <button class="filters-btn mt-4 md:mt-2" (click)="viewAllSector()">
                             {{'gyaanKarmayogi.moreFilters'| translate}}
                             <!-- <mat-icon class="filter-dots">more_vert</mat-icon> -->
                         </button>

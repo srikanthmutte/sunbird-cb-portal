@@ -679,9 +679,37 @@ export class ViewerSecondaryTopBarComponent implements OnInit, OnDestroy, AfterV
 
 
 
+  private shouldApplyMilestoneLocking(): boolean {
+    const routeContent = this.activatedRoute?.snapshot?.data?.contentRead?.data?.result?.content
+    const collectionIdentifier = this.activatedRoute?.snapshot?.queryParams?.MLId ||
+      this.activatedRoute?.snapshot?.queryParams?.collectionId ||
+      this.collectionId
+    const collectionDataFromHashmap = collectionIdentifier && this.appTocSvc?.hashmap ?
+      this.appTocSvc?.hashmap[collectionIdentifier] : null
+    const courseCategories = [
+      this.baseContentReadData?.courseCategory,
+      routeContent?.courseCategory,
+      collectionDataFromHashmap?.courseCategory,
+      this.currentDataFromEnrollList?.content?.courseCategory,
+    ]
+    const availableCourseCategories = courseCategories?.filter(category => !!category)
+
+    if (!availableCourseCategories?.length) {
+      return true
+    }
+
+    return availableCourseCategories.some(category => category === NsContent.ECourseCategory.LEARNING_PATHWAY ||
+      category === 'Learning Pathway')
+  }
+
   checkIfContentIsLocked(contentIdentifier: string): boolean {
     // Return false if no identifier provided
     if (!contentIdentifier) {
+      return false
+    }
+
+    // Milestone locking is applicable only for Learning Pathway content.
+    if (!this.shouldApplyMilestoneLocking()) {
       return false
     }
 
